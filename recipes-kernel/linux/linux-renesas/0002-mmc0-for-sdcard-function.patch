@@ -1,0 +1,34 @@
+From 69c702a5baf835503e2689e459bf99d783157084 Mon Sep 17 00:00:00 2001
+From: slash <slash@gmail.com>
+Date: Wed, 6 Mar 2024 15:36:40 +0800
+Subject: [PATCH] mmc0 for sdcard function
+
+1. use gpio5-3    ctrl vcc_sdhi0
+2. use vccq_sdhi0 ctrl vccq_sdhi0
+3. cd-gpios
+4. wp-gpios
+---
+ .../arm64/boot/dts/renesas/r8a77951-salvator-xs.dts | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts b/arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts
+index 220d6d349012..323f65ed35fd 100644
+--- a/arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts
++++ b/arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts
+@@ -247,3 +247,16 @@ &vspi0 {
+ &vspi1 {
+ 	status = "okay";
+ };
++
++&vcc_sdhi0 {
++	gpio = <&gpio5 3 GPIO_ACTIVE_HIGH>;
++};
++
++&vccq_sdhi0 {
++	gpios = <&gpio5 9 GPIO_ACTIVE_HIGH>;
++};
++
++&sdhi0 {
++	/delete-property/cd-gpios;
++	/delete-property/wp-gpios;
++};

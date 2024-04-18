@@ -1,0 +1,48 @@
+From e75acbf5042d6567b659031c7aa0fd4586ed2d95 Mon Sep 17 00:00:00 2001
+From: slash <slash@gmail.com>
+Date: Tue, 9 Apr 2024 09:05:46 +0800
+Subject: [PATCH] add property "sdoe" for setting SD/OE input pin
+
+SD/OE input pin is active low if this bit is 0 and
+active high if this bit is 1.
+---
+ drivers/clk/clk-versaclock5.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/clk/clk-versaclock5.c b/drivers/clk/clk-versaclock5.c
+index 43db67337bc0..76740dbc835a 100644
+--- a/drivers/clk/clk-versaclock5.c
++++ b/drivers/clk/clk-versaclock5.c
+@@ -832,8 +832,9 @@ static int vc5_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ 	struct vc5_driver_data *vc5;
+ 	struct clk_init_data init;
+ 	const char *parent_names[2];
+-	unsigned int n, idx = 0;
++	unsigned int n, idx = 0, rd;
+ 	int ret;
++	const char *sode_val;
+ 
+ 	vc5 = devm_kzalloc(&client->dev, sizeof(*vc5), GFP_KERNEL);
+ 	if (!vc5)
+@@ -857,6 +858,21 @@ static int vc5_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ 		return PTR_ERR(vc5->regmap);
+ 	}
+ 
++	ret = device_property_read_string(&client->dev, "sdoe", &sode_val);
++	if (!ret) {
++		rd = i2c_smbus_read_byte_data(client, VC5_PRIM_SRC_SHDN);
++		if (rd >= 0) {
++			if (!strncmp (sode_val, "active_low", 10))
++				rd &= ~(VC5_PRIM_SRC_SHDN_SP);
++			else if (!strncmp (sode_val, "active_high", 11))
++				rd |= (VC5_PRIM_SRC_SHDN_SP);
++
++			ret = i2c_smbus_write_byte_data(client, VC5_PRIM_SRC_SHDN, rd);
++			if (ret)
++				pr_err("VC5_PRIM_SRC_SHDN fail %d\n", ret);
++		}
++	}
++
+ 	/* Register clock input mux */
+ 	memset(&init, 0, sizeof(init));
+ 

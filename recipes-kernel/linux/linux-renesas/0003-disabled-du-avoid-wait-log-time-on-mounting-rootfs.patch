@@ -1,0 +1,21 @@
+From a5c7eb34802207e4cdf7e4c6005d71152a402769 Mon Sep 17 00:00:00 2001
+From: slash <slash@gmail.com>
+Date: Wed, 6 Mar 2024 15:40:10 +0800
+Subject: [PATCH] disabled du avoid wait log time on mounting rootfs
+
+---
+ arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts b/arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts
+index 323f65ed35fd..c898b056c6c6 100644
+--- a/arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts
++++ b/arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dts
+@@ -260,3 +260,7 @@ &sdhi0 {
+ 	/delete-property/cd-gpios;
+ 	/delete-property/wp-gpios;
+ };
++
++&du {
++	status = "disabled";
++};
