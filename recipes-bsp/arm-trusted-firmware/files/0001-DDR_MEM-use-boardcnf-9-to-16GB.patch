@@ -1,0 +1,67 @@
+From 51c55fde31bbc1d200aabdfe52decdcf28ebb4be Mon Sep 17 00:00:00 2001
+From: "slash.huang" <slash.linux.c@gmail.com>
+Date: Wed, 6 Mar 2024 16:43:52 +0800
+Subject: [PATCH] [DDR_MEM] use boardcnf[9] to 16GB
+
+use 16GB on boardcnf[9] : RENESAS SALVATOR-MS(1rank) board with H3
+---
+ .../renesas/common/ddr/ddr_b/boot_init_dram_config.c  | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/renesas/common/ddr/ddr_b/boot_init_dram_config.c b/drivers/renesas/common/ddr/ddr_b/boot_init_dram_config.c
+index 9ec345f66..db58fa810 100644
+--- a/drivers/renesas/common/ddr/ddr_b/boot_init_dram_config.c
++++ b/drivers/renesas/common/ddr/ddr_b/boot_init_dram_config.c
+@@ -16,7 +16,6 @@
+ #else
+ #define BOARDNUM 22
+ #endif /* RZG_SOC == 1 */
+-#define BOARD_JUDGE_AUTO
+ 
+ #ifdef BOARD_JUDGE_AUTO
+ static uint32_t _board_judge(void);
+@@ -28,7 +27,7 @@ static uint32_t boardcnf_get_brd_type(void)
+ #else
+ static uint32_t boardcnf_get_brd_type(void)
+ {
+-	return 1;
++	return 9;
+ }
+ #endif
+ 
+@@ -999,7 +998,7 @@ static const struct _boardcnf boardcnfs[BOARDNUM] = {
+ 	 0x0a0,
+ 	{
+ 	{
+-	   {0x02, 0xff},
++	   {0x04, 0xff},
+ 	   0x00543210,
+ 	   0x3210,
+ 	   {0x27645310, 0x75346210, 0x53467210, 0x23674510},
+@@ -1019,7 +1018,7 @@ static const struct _boardcnf boardcnfs[BOARDNUM] = {
+ 	    0, 0, 0, 0, 0, 0, 0, 0}
+ 	   },
+ 	{
+-	   {0x02, 0xff},
++	   {0x04, 0xff},
+ 	   0x00543210,
+ 	   0x2301,
+ 	   {0x23764510, 0x43257610, 0x43752610, 0x37652401},
+@@ -1039,7 +1038,7 @@ static const struct _boardcnf boardcnfs[BOARDNUM] = {
+ 	    0, 0, 0, 0, 0, 0, 0, 0}
+ 	   },
+ 	{
+-	   {0x02, 0xff},
++	   {0x04, 0xff},
+ 	   0x00452103,
+ 	   0x3210,
+ 	   {0x32764510, 0x43257610, 0x43752610, 0x26573401},
+@@ -1059,7 +1058,7 @@ static const struct _boardcnf boardcnfs[BOARDNUM] = {
+ 	    0, 0, 0, 0, 0, 0, 0, 0}
+ 	   },
+ 	{
+-	   {0x02, 0xff},
++	   {0x04, 0xff},
+ 	   0x00520413,
+ 	   0x2301,
+ 	   {0x47652301, 0x75346210, 0x53467210, 0x32674501},

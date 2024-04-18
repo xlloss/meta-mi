@@ -1,0 +1,22 @@
+From 6472436a544d74be11693b405f0def11b7d90415 Mon Sep 17 00:00:00 2001
+From: "slash.huang" <slash.linux.c@gmail.com>
+Date: Wed, 6 Mar 2024 16:45:33 +0800
+Subject: [PATCH] [LED] trun off led on boot
+
+---
+ drivers/renesas/rcar/pfc/H3/pfc_init_h3_v2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/renesas/rcar/pfc/H3/pfc_init_h3_v2.c b/drivers/renesas/rcar/pfc/H3/pfc_init_h3_v2.c
+index a54b14b37..c4fd1f94a 100644
+--- a/drivers/renesas/rcar/pfc/H3/pfc_init_h3_v2.c
++++ b/drivers/renesas/rcar/pfc/H3/pfc_init_h3_v2.c
+@@ -1198,7 +1198,7 @@ void pfc_init_h3_v2(void)
+ 	mmio_write_32(GPIO_OUTDT2, 0x00000400U);
+ 	mmio_write_32(GPIO_OUTDT3, 0x0000C000U);
+ 	mmio_write_32(GPIO_OUTDT5, 0x00000006U);
+-	mmio_write_32(GPIO_OUTDT6, 0x00003880U);
++	mmio_write_32(GPIO_OUTDT6, 0x00000080U);
+ 
+ 	/* initialize general input/output switching */
+ 	mmio_write_32(GPIO_INOUTSEL0, 0x00000000U);
