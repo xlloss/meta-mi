@@ -1,0 +1,31 @@
+From 91d359faa98300d7aa4afed0056d7a7861422ad4 Mon Sep 17 00:00:00 2001
+From: "slash.huang" <slash.linux.c@gmail.com>
+Date: Wed, 6 Mar 2024 11:30:59 +0800
+Subject: [PATCH] [SDMMC] change vcc control pin for sdmmc channel 0
+
+---
+ arch/arm/dts/salvator-common.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/dts/salvator-common.dtsi b/arch/arm/dts/salvator-common.dtsi
+index 98bbcafc8c..e104536df0 100644
+--- a/arch/arm/dts/salvator-common.dtsi
++++ b/arch/arm/dts/salvator-common.dtsi
+@@ -219,7 +219,7 @@
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 
+-		gpio = <&gpio5 2 GPIO_ACTIVE_HIGH>;
++		gpio = <&gpio5 3 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 	};
+ 
+@@ -230,7 +230,7 @@
+ 		regulator-min-microvolt = <1800000>;
+ 		regulator-max-microvolt = <3300000>;
+ 
+-		gpios = <&gpio5 1 GPIO_ACTIVE_HIGH>;
++		gpios = <&gpio5 9 GPIO_ACTIVE_HIGH>;
+ 		gpios-states = <1>;
+ 		states = <3300000 1>, <1800000 0>;
+ 	};
